@@ -7,22 +7,18 @@ const { default: helmet } = require('helmet');
 const compression = require('compression');
 
 //# INIT MIDDLEWARE
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(compression()); // nén data trả về
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 //# INIT DB
 require('./dbs/init.mongodb');
 const { checkOverload } = require('./helpers/check.connect');
-checkOverload();
+// checkOverload();
 //# INIT ROUTES
-app.get('/', function (req, res,next) {
-    res.status(200).json({
-      msg: 'Hello World'
-    })
-})
+app.use('/', require('./routers'));
 
 //# HANDLING ERRORS
 

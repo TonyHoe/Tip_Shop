@@ -6,6 +6,6 @@ const server = app.listen(PORT, () => {
 });
 
 //# CRT + C -> server đóng
-// process.on('SIGINT', () => {
-//     server.close(() => { console.log('******* Server Exit *******'); });
-// });
+process.on('SIGINT', () => {
+    server.close(() => { console.log('******* Server Exit *******'); });
+});
